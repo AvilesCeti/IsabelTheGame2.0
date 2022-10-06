@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Retro Computer';
+    src: url('../fonts/retro_computer_personal_use.ttf');
+}
+@font-face {
+    font-family: 'MERCY';
+    src: url('../fonts/MERCY.ttf');
+}
+@font-face {
+    font-family: 'Perfect DOS VGA 437 Win';
+    src: url('../fonts/dialogo.ttf');
+}
+
+.titulo{
+    -fx-padding: 25 25 25 25;
+    -fx-background-color: #00000060;
+    -fx-text-fill: white;
+    -fx-font-family: 'Retro Computer';
+    -fx-font-size: 2em;
+}
+.botonesOpciones{
+    -fx-background-color: transparent;
+    -fx-background-image: url(../misc/botonCover.png);
+    -fx-background-size: stretch;
+    -fx-padding: 0 0 5 0;
+    -fx-text-fill: black;
+    -fx-font-family: 'Retro Computer';
+    -fx-font-size: 1.5em;
+}
+.botonesOpciones:hover{
+    -fx-opacity: .9;
+}
+.botonesOpciones:pressed{
+    -fx-text-fill: gold;
+}

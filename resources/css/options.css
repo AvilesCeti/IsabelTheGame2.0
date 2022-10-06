@@ -1,0 +1,27 @@
+.slider .track{
+    -fx-background-radius: 0;
+    -fx-scale-y: .5em;
+    -fx-background-color: #505050CC;
+}
+.slider .thumb{
+    -fx-background-radius: 0;
+    -fx-scale-y: .29em;
+    -fx-background-color: #707070DD;
+}
+.check-box .box{
+    -fx-scale-x: .2em;
+    -fx-scale-y: .2em;
+    -fx-background-radius: 0;
+}
+.check-box:determinate .box{
+    -fx-background-color: #00000060;
+}
+.check-box:determinate .mark{
+    -fx-background-color: #FFFFFF20;
+}
+.check-box:selected .mark{
+    -fx-background-color: white;
+}
+.check-box:selected .box{
+    -fx-background-color: #00000060;
+}

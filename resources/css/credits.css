@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'Retro Computer';
+    src: url('../fonts/retro_computer_personal_use.ttf');
+}
+@font-face {
+    font-family: 'Perfect DOS VGA 437 Win';
+    src: url('../fonts/dialogo.ttf');
+}
+@font-face {
+    font-family: 'Minecraftia';
+    src: url('../fonts/mine.ttf');
+}
+
+.titulo{
+    -fx-padding: 25 25 25 25;
+    -fx-background-color: #00000060;
+    -fx-text-fill: white;
+    -fx-font-family: 'Retro Computer';
+    -fx-font-size: 2em;
+}
+.miNombre{
+    -fx-padding: 0 0 0 0;
+    -fx-font-family: 'Minecraftia';
+    -fx-text-fill: black;
+}
+.miNombre:hover{
+    -fx-text-fill: gold;
+}
+.miNombre:pressed{
+    -fx-translate-y: 2.5;
+}
+.nombres{
+    -fx-padding: 0 0 0 0;
+    -fx-font-family: 'Minecraftia';
+    -fx-text-fill: black;
+}
+.nothingRoot{
+    -fx-background-color: black;
+}
+.regresar{
+    -fx-padding: 0 0 0 0;
+    -fx-font-family: 'Minecraftia';
+    -fx-text-fill: white;
+}
+.regresar:hover{
+    -fx-text-fill: gold;
+}
+.regresar:pressed{
+    -fx-translate-y: 2.5;
+}
