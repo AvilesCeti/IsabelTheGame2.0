@@ -5,6 +5,12 @@
 package Game;
 
 import entity.NPC_Doc;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 import object.OBJ_Hostal;
 import object.OBJ_WhiteHouse;
 
@@ -20,6 +26,15 @@ public class AssetSetter
     public AssetSetter(GamePanel gp)
     {
         this.gp = gp;
+        
+        try
+        {
+            SourceDataLine sdl = AudioSystem.getSourceDataLine(new AudioFormat(48000, 16, 2, true, true ));
+                    sdl.available();
+                    } catch (LineUnavailableException ex)
+        {
+            Logger.getLogger(AssetSetter.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

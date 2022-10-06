@@ -22,7 +22,7 @@ public class Sound
     {
         try
         {
-            soundUrl[0] = getClass().getResource("/music/konosuba.wav");
+            soundUrl[0] = getClass().getResource("/music/konosuba.mp3");
             soundUrl[1] = getClass().getResource("/sounds/snd_select.wav");
             soundUrl[2] = getClass().getResource("/sounds/mus_f_laugh.wav");
             soundUrl[3] = getClass().getResource("/music/toradora.wav");
