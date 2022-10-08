@@ -6,6 +6,7 @@ package Game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import main.IsabelTheGame;
 
 /**
  *
@@ -119,7 +120,7 @@ public class GameKeyHandler implements KeyListener
             {
                 gp.gameState = gp.PLAY_STATE;
                 gp.player.isFalling = false;
-                gp.playMusic(0);
+                IsabelTheGame.soundHandler.play("kono");
             }
             if (gp.ui.commandNum == 1)
             {

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JPanel;
-import main.IsabelTheGame;
 
 /**
  *
@@ -41,9 +40,6 @@ public class GamePanel extends JPanel implements Runnable
     //EVENTS
     public EventHandler eHandler;
 
-    //SOUND
-    Sound music = new Sound();
-    Sound se = new Sound();
 
     //UI
     public UI ui = new UI(this);
@@ -95,6 +91,7 @@ public class GamePanel extends JPanel implements Runnable
 
     public void setupGame()
     {
+//        Sound.playS();
         aSetter.setObject();
         aSetter.setNPC();
         gameState = TITLE_STATE;
@@ -205,23 +202,7 @@ public class GamePanel extends JPanel implements Runnable
 
     }
 
-    public void playMusic(int i)
-    {
-        music.setFile(i, GameSettings.musicVolume);
-        music.play();
-        music.loop();
-    }
-
-    public void stopMusic()
-    {
-        music.stop();
-    }
-
-    public void playSE(int i)
-    {
-        se.setFile(i, GameSettings.soundEVolume);
-        se.play();
-    }
+    
 
     public void startGameThread()
     {

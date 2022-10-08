@@ -2,13 +2,14 @@
  */
 package main;
 
-import Game.Sound;
+import Persistencia.GameSettings;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -20,12 +21,13 @@ public class IsabelTheGame extends Application
     public static Parent originalRoot;
     public static Stage stage;
     public static Scene scene;
-    public static Sound music = new Sound();
-    public static Sound soundEffect = new Sound();
+    public static SoundHandler soundHandler = new SoundHandler();
 
     @Override
     public void start(Stage primaryStage)
     {
+        new GameSettings();
+        new SoundLoader();
         stage = primaryStage;
         try
         {
@@ -37,6 +39,11 @@ public class IsabelTheGame extends Application
             primaryStage.setTitle("IsabelTheGame");
             primaryStage.setScene(scn);
             primaryStage.sizeToScene();
+            primaryStage.setOnCloseRequest((WindowEvent event) ->
+            {
+                soundHandler.close();
+                System.exit(0);
+            });
             primaryStage.show();
         } catch (IOException ex)
         {

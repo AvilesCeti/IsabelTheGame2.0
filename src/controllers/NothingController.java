@@ -2,7 +2,6 @@
  */
 package controllers;
 
-import Persistencia.GameSettings;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -24,20 +23,15 @@ public class NothingController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        IsabelTheGame.music.stop();
-        IsabelTheGame.music.setFile(4, GameSettings.musicVolume);
-        IsabelTheGame.music.loop();
-        IsabelTheGame.music.play();
+            IsabelTheGame.soundHandler.play("nothing");
     }
 
     @FXML
     private void regresar(MouseEvent event)
     {
         IsabelTheGame.scene.setRoot(IsabelTheGame.originalRoot);
-        IsabelTheGame.music.stop();
-        IsabelTheGame.music.setFile(5, GameSettings.musicVolume);
-        IsabelTheGame.music.loop();
-        IsabelTheGame.music.play();
+        IsabelTheGame.soundHandler.stop("nothing");
+        IsabelTheGame.soundHandler.play("song");
     }
 
 }

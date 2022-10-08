@@ -3,7 +3,6 @@
 package controllers;
 
 import Game.GamePanel;
-import Persistencia.GameSettings;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -50,9 +49,7 @@ public class PresentacionController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        IsabelTheGame.music.setFile(5, GameSettings.musicVolume);
-        IsabelTheGame.music.loop();
-        IsabelTheGame.music.play();
+        IsabelTheGame.soundHandler.play("song");
         scaleImages();
         animateImages();
     }
@@ -95,12 +92,13 @@ public class PresentacionController implements Initializable
     @FXML
     private void continuar(ActionEvent event)
     {
-        
+        IsabelTheGame.soundHandler.stop("song");
     }
 
     @FXML
     private void jugar(ActionEvent event)
     {
+        IsabelTheGame.soundHandler.stop("song");
         IsabelTheGame.stage.hide();
         JFrame window = new JFrame("Isabel The Game");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
