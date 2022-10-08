@@ -2,7 +2,7 @@
  */
 package main;
 
-import Persistencia.GameSettings;
+import Persistencia.Persistencia;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,17 +22,19 @@ public class IsabelTheGame extends Application
     public static Stage stage;
     public static Scene scene;
     public static SoundHandler soundHandler = new SoundHandler();
+    private Persistencia p;
 
     @Override
     public void start(Stage primaryStage)
     {
-        new GameSettings();
+        new Persistencia();
         new SoundLoader();
         stage = primaryStage;
         try
         {
             primaryStage.setResizable(false);
             Parent root = FXMLLoader.load(getClass().getResource("/scenes/Presentacion.fxml"));
+            soundHandler.play("song");
             originalRoot = root;
             Scene scn = new Scene(root);
             IsabelTheGame.scene = scn;
@@ -41,6 +43,7 @@ public class IsabelTheGame extends Application
             primaryStage.sizeToScene();
             primaryStage.setOnCloseRequest((WindowEvent event) ->
             {
+                Persistencia.saveData();
                 soundHandler.close();
                 System.exit(0);
             });

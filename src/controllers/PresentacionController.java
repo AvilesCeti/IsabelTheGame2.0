@@ -3,6 +3,7 @@
 package controllers;
 
 import Game.GamePanel;
+import Persistencia.Persistencia;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +24,7 @@ import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import main.IsabelTheGame;
+import static main.IsabelTheGame.soundHandler;
 import tile.UtilityTool;
 
 /**
@@ -31,7 +33,8 @@ import tile.UtilityTool;
  * @author avile
  */
 public class PresentacionController implements Initializable
-{    
+{
+
     @FXML
     private ImageView bkg0;
     @FXML
@@ -49,7 +52,6 @@ public class PresentacionController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        IsabelTheGame.soundHandler.play("song");
         scaleImages();
         animateImages();
     }
@@ -147,6 +149,8 @@ public class PresentacionController implements Initializable
     @FXML
     private void salir(ActionEvent event)
     {
+        Persistencia.saveData();
+        soundHandler.close();
         System.exit(0);
     }
 

@@ -71,6 +71,11 @@ public class OptionsController implements Initializable
         labelMusic.setText("Volumen Musica: " + (int) (barMusic.getValue()) + "%");
         barSE.setValue(GameSettings.soundEVolume);
         labelSE.setText("Efectos Sonido: " + (int) (barSE.getValue()) + "%");
+        fullS.setSelected(GameSettings.isFullScreen);
+        fullS.selectedProperty().addListener((observable) ->
+        {
+            GameSettings.isFullScreen = fullS.isSelected();
+        });
         scaleImages();
         animateImages();
     }

@@ -126,11 +126,19 @@ public class SoundHandler
         mySoundSystem.play(sourceName);
     }
 
+    public void fadeOut(String newKey, int millis)
+    {
+        SourceSound ss = getSound(newKey);
+        createMusic(ss);
+        setVolume(newKey, GameSettings.musicVolume);
+        actualKey = newKey;
+        mySoundSystem.fadeOut(ss.getSourceName(), ss.getUrl(), ss.getIdentifier(), millis);
+    }
+
     public void setVolume(String sourceName, double value)
     {
         factor = (value / 100);
         volume = factor * factor;
-        System.out.println(sourceName);
         mySoundSystem.setVolume(sourceName, (float) volume);
     }
 

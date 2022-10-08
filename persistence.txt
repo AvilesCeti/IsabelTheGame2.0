@@ -1,0 +1,3 @@
+musicVolume:75.7396449704142
+effectsVolume:100.0
+isFullScreen:true
