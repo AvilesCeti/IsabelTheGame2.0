@@ -1,6 +1,9 @@
 package main;
 
+import Persistencia.GameSettings;
 import java.net.URL;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -9,36 +12,37 @@ import java.net.URL;
 public class SourceSound
 {
 
-    private boolean priority, toLoop, type;
-    private String sourceName, identifier;
+    private boolean toLoop, type;
+    private MediaPlayer mp;
     private URL url;
-    private float x, y, z;
 
-    public SourceSound(boolean priority, URL url, String sourceName, String identifier, boolean toLoop, float x, float y, float z, boolean type)
+    public SourceSound(URL url, boolean toLoop, boolean type)
     {
-        this.priority = priority;
+        this.mp = new MediaPlayer(new Media(url.toString()));
         this.toLoop = toLoop;
-        this.sourceName = sourceName;
-        this.identifier = identifier;
-        this.url = url;
-        this.x = x;
-        this.y = y;
-        this.z = z;
         this.type = type;
+        this.url = url;
+        if (toLoop)
+        {
+            mp.setCycleCount(MediaPlayer.INDEFINITE);
+        }
+        if (type)
+        {
+            mp.volumeProperty().bindBidirectional(GameSettings.musicVolume);
+        } else
+        {
+            mp.volumeProperty().bind(GameSettings.soundEVolume);
+        }
     }
 
-    public boolean getType(){
+    public URL getUrl()
+    {
+        return url;
+    }
+
+    public boolean getType()
+    {
         return type;
-    }
-    
-    public boolean isPriority()
-    {
-        return priority;
-    }
-
-    public void setPriority(boolean priority)
-    {
-        this.priority = priority;
     }
 
     public boolean isToLoop()
@@ -51,48 +55,9 @@ public class SourceSound
         this.toLoop = toLoop;
     }
 
-    public String getSourceName()
+    public MediaPlayer getMediaPlayer()
     {
-        return sourceName;
+        return mp;
     }
 
-    public void setSourceName(String sourceName)
-    {
-        this.sourceName = sourceName;
-    }
-
-    public String getIdentifier()
-    {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier)
-    {
-        this.identifier = identifier;
-    }
-
-    public URL getUrl()
-    {
-        return url;
-    }
-
-    public void setUrl(URL url)
-    {
-        this.url = url;
-    }
-
-    public void setPoint3D(int x, int y, int z){
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-    
-    public float[] getPoint3D(){
-        float[] values = new float[3];
-        values[0] = x;
-        values[1] = y;
-        values[2] = z;
-        return values;
-    }
-    
 }

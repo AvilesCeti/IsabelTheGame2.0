@@ -2,7 +2,6 @@
  */
 package controllers;
 
-import Game.GamePanel;
 import Persistencia.Persistencia;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -22,9 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import main.IsabelTheGame;
-import static main.IsabelTheGame.soundHandler;
 import tile.UtilityTool;
 
 /**
@@ -54,6 +51,7 @@ public class PresentacionController implements Initializable
     {
         scaleImages();
         animateImages();
+        IsabelTheGame.soundHandler.play("song");
     }
 
     public BufferedImage loadImage(String path, int width, int height)
@@ -94,30 +92,30 @@ public class PresentacionController implements Initializable
     @FXML
     private void continuar(ActionEvent event)
     {
-        IsabelTheGame.soundHandler.stop("song");
+        try
+        {
+            IsabelTheGame.soundHandler.stop("song");
+            Parent root = FXMLLoader.load(getClass().getResource("/scenes/Story.fxml"));
+            IsabelTheGame.scene.setRoot(root);
+        } catch (Exception ex)
+        {
+            Logger.getLogger(PresentacionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void jugar(ActionEvent event)
     {
-        IsabelTheGame.soundHandler.stop("song");
-        IsabelTheGame.stage.hide();
-        JFrame window = new JFrame("Isabel The Game");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-
-        GamePanel gamePanel = new GamePanel();
-
-        gamePanel.setupGame();        //Method that creates and locate things like objects etc.
-        gamePanel.startGameThread();      //When the actual game starts
-        gamePanel.player.isFalling = true;
-
-        window.add(gamePanel);
-
-        window.pack();
-
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        try
+        {
+            IsabelTheGame.soundHandler.stop("song");
+            IsabelTheGame.soundHandler.play("flower");
+            Parent root = FXMLLoader.load(getClass().getResource("/scenes/Story.fxml"));
+            IsabelTheGame.scene.setRoot(root);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PresentacionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -150,7 +148,6 @@ public class PresentacionController implements Initializable
     private void salir(ActionEvent event)
     {
         Persistencia.saveData();
-        soundHandler.close();
         System.exit(0);
     }
 
@@ -186,6 +183,12 @@ public class PresentacionController implements Initializable
         }));
         tmr.setCycleCount(Timeline.INDEFINITE);
         tmr.play();
+    }
+
+    private int cerrarPrograma()
+    {
+        Persistencia.saveData();
+        return 0;
     }
 
 }

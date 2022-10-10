@@ -34,7 +34,7 @@ public class IsabelTheGame extends Application
         {
             primaryStage.setResizable(false);
             Parent root = FXMLLoader.load(getClass().getResource("/scenes/Presentacion.fxml"));
-            soundHandler.play("song");
+//            soundHandler.play("song");
             originalRoot = root;
             Scene scn = new Scene(root);
             IsabelTheGame.scene = scn;
@@ -44,7 +44,6 @@ public class IsabelTheGame extends Application
             primaryStage.setOnCloseRequest((WindowEvent event) ->
             {
                 Persistencia.saveData();
-                soundHandler.close();
                 System.exit(0);
             });
             primaryStage.show();

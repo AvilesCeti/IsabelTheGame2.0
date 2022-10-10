@@ -154,7 +154,6 @@ public class CreditsController implements Initializable
         try
         {
             IsabelTheGame.soundHandler.stop("song");
-            IsabelTheGame.soundHandler.sleep(200);
             Parent root = FXMLLoader.load(getClass().getResource("/scenes/Nothing.fxml"));
             IsabelTheGame.scene.setRoot(root);
         } catch (IOException ex)

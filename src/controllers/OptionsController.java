@@ -20,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import main.IsabelTheGame;
-import main.SoundHandler;
 import tile.UtilityTool;
 
 /**
@@ -59,17 +58,18 @@ public class OptionsController implements Initializable
         barMusic.valueProperty().addListener((observable) ->
         {
             labelMusic.setText("Volumen Musica: " + (int) (barMusic.getValue()) + "%");
-            IsabelTheGame.soundHandler.setVolume(SoundHandler.actualKey, barMusic.getValue());
-            GameSettings.musicVolume = barMusic.getValue();
+            double factor = barMusic.getValue()/100;
+            GameSettings.musicVolume.set(factor*factor);
         });
         barSE.valueProperty().addListener((observable) ->
         {
             labelSE.setText("Efectos Sonido: " + (int) (barSE.getValue()) + "%");
-            GameSettings.soundEVolume = barSE.getValue();
+            double factor = barSE.getValue()/100;
+            GameSettings.soundEVolume.set(factor*factor);
         });
-        barMusic.setValue(GameSettings.musicVolume);
+        barMusic.setValue(GameSettings.musicVolume.getValue());
         labelMusic.setText("Volumen Musica: " + (int) (barMusic.getValue()) + "%");
-        barSE.setValue(GameSettings.soundEVolume);
+        barSE.setValue(GameSettings.soundEVolume.getValue());
         labelSE.setText("Efectos Sonido: " + (int) (barSE.getValue()) + "%");
         fullS.setSelected(GameSettings.isFullScreen);
         fullS.selectedProperty().addListener((observable) ->

@@ -1,3 +1,6 @@
-musicVolume:75.7396449704142
-effectsVolume:100.0
-isFullScreen:true
+musicVolume:100.0
+effectsVolume:46.74556213017752
+isFullScreen:false
+nothingChecked:false
+hasBeenWatched:false
+hasFirstFalled:true

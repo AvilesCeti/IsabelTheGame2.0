@@ -31,7 +31,6 @@ public class NothingController implements Initializable
     private void regresar(MouseEvent event)
     {
         IsabelTheGame.soundHandler.stop("nothing");
-        IsabelTheGame.soundHandler.sleep(200);
         IsabelTheGame.scene.setRoot(IsabelTheGame.originalRoot);
         IsabelTheGame.soundHandler.play("song");
     }

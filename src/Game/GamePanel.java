@@ -1,6 +1,5 @@
 package Game;
 
-import Persistencia.GameSettings;
 import tile.TileManager;
 import entity.CollisionChecker;
 import entity.Entity;
@@ -40,7 +39,6 @@ public class GamePanel extends JPanel implements Runnable
     //EVENTS
     public EventHandler eHandler;
 
-
     //UI
     public UI ui = new UI(this);
 
@@ -65,7 +63,6 @@ public class GamePanel extends JPanel implements Runnable
 
     //GAME STATE
     public int gameState;
-    public final int TITLE_STATE = 0;
     public final int PLAY_STATE = 1;
     public final int PAUSE_STATE = 2;
     public final int DIALOGUE_STATE = 3;
@@ -86,15 +83,15 @@ public class GamePanel extends JPanel implements Runnable
 
         this.addKeyListener(keyHandler);
         this.setFocusable(true);        //Make the panel Focusable to be render in a first Instance    
-
+        
     }
 
     public void setupGame()
     {
-//        Sound.playS();
+//        IsabelTheGame.soundHandler.play("kono");
         aSetter.setObject();
         aSetter.setNPC();
-        gameState = TITLE_STATE;
+        gameState = PLAY_STATE;
     }
 
     @Override
@@ -150,59 +147,50 @@ public class GamePanel extends JPanel implements Runnable
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        //TITLE SCREEN
-        if (gameState == TITLE_STATE)
+        //TILE
+        manager.draw(g2);
+
+        //ADD ENTITYES TO THE LIST
+        eList.add(player);
+        for (int i = 0; i < npc.length; i++)
         {
-            ui.draw(g2);
-        } else
+            if (npc[i] != null)
+            {
+                eList.add(npc[i]);
+            }
+        }
+        for (int i = 0; i < obj.length; i++)
         {
-            //TILE
-            manager.draw(g2);
-
-            //ADD ENTITYES TO THE LIST
-            eList.add(player);
-            for (int i = 0; i < npc.length; i++)
+            if (obj[i] != null)
             {
-                if (npc[i] != null)
-                {
-                    eList.add(npc[i]);
-                }
+                eList.add(obj[i]);
             }
-            for (int i = 0; i < obj.length; i++)
-            {
-                if (obj[i] != null)
-                {
-                    eList.add(obj[i]);
-                }
-            }
-
-            Collections.sort(eList, new Comparator<Entity>()
-            {
-                @Override
-                public int compare(Entity o1, Entity o2)
-                {
-                    int result = Integer.compare(o1.worldY, o2.worldY);
-                    return result;
-                }
-            });
-
-            //DRAW ENTITIES
-            for (int i = 0; i < eList.size(); i++)
-            {
-                eList.get(i).draw(g2);
-            }
-
-            //EMPTY ENTITY LIST
-            eList.clear();
-            
-            //UI
-            ui.draw(g2);
-            g2.dispose();
         }
 
-    }
+        Collections.sort(eList, new Comparator<Entity>()
+        {
+            @Override
+            public int compare(Entity o1, Entity o2)
+            {
+                int result = Integer.compare(o1.worldY, o2.worldY);
+                return result;
+            }
+        });
 
-    
+        //DRAW ENTITIES
+        for (int i = 0; i < eList.size(); i++)
+        {
+            eList.get(i).draw(g2);
+        }
+
+        //EMPTY ENTITY LIST
+        eList.clear();
+
+        //UI
+        ui.draw(g2);
+        g2.dispose();
+
+    }
 
     public void startGameThread()
     {

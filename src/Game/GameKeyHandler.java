@@ -35,12 +35,8 @@ public class GameKeyHandler implements KeyListener
     {
         int code = e.getKeyCode();
 
-        //TITLE STATE
-        if (gp.gameState == gp.TITLE_STATE)
-        {
-            titleState(code);
-        } //PLAY STATE
-        else if (gp.gameState == gp.PLAY_STATE)
+        //PLAY STATE
+        if (gp.gameState == gp.PLAY_STATE)
         {
             playState(code);
         } //PAUSE STATE
@@ -93,43 +89,6 @@ public class GameKeyHandler implements KeyListener
         if (code == KeyEvent.VK_T)
         {
             isDebug = !isDebug;
-        }
-    }
-
-    public void titleState(int code)
-    {
-        if (code == KeyEvent.VK_W)
-        {
-            gp.ui.commandNum--;
-            if (gp.ui.commandNum < 0)
-            {
-                gp.ui.commandNum = 2;
-            }
-        }
-        if (code == KeyEvent.VK_S)
-        {
-            gp.ui.commandNum++;
-            if (gp.ui.commandNum > 2)
-            {
-                gp.ui.commandNum = 0;
-            }
-        }
-        if (code == KeyEvent.VK_ENTER)
-        {
-            if (gp.ui.commandNum == 0)
-            {
-                gp.gameState = gp.PLAY_STATE;
-                gp.player.isFalling = false;
-                IsabelTheGame.soundHandler.play("kono");
-            }
-            if (gp.ui.commandNum == 1)
-            {
-                //IMPLEMENTING LATER
-            }
-            if (gp.ui.commandNum == 2)
-            {
-                System.exit(0);
-            }
         }
     }
 

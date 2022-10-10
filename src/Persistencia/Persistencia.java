@@ -1,7 +1,6 @@
 package Persistencia;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -49,6 +48,8 @@ public class Persistencia
             escritura.append("effectsVolume:100\n");
             escritura.append("isFullScreen:false\n");
             escritura.append("nothingChecked:false\n");
+            escritura.append("hasBeenWatched:false\n");
+            escritura.append("hasFirstFalled:false\n");
             escritura.close();
         } catch (IOException ex)
         {
@@ -62,35 +63,57 @@ public class Persistencia
         {
             entrada = new Scanner(file);
 
-            String line = entrada.nextLine();
-            GameSettings.musicVolume = Double.parseDouble(line.split(":")[1]);
-            line = entrada.nextLine();
-            GameSettings.soundEVolume = Double.parseDouble(line.split(":")[1]);
-            line = entrada.nextLine();
+            String line = getLine();
+            GameSettings.musicVolume.set(Double.parseDouble(line.split(":")[1]));
+            line = getLine();
+            GameSettings.soundEVolume.set(Double.parseDouble(line.split(":")[1]));
+            line = getLine();
             GameSettings.isFullScreen = Boolean.parseBoolean(line.split(":")[1]);
-            line = entrada.nextLine();
+            line = getLine();
             GameSettings.nothingChecked = Boolean.parseBoolean(line.split(":")[1]);
-        } catch (FileNotFoundException ex)
+            line = getLine();
+            GameSettings.hasBeenWatched = Boolean.parseBoolean(line.split(":")[1]);
+            line = getLine();
+            GameSettings.hasFirstFalled = Boolean.parseBoolean(line.split(":")[1]);
+            entrada.close();
+        } catch (Exception ex)
         {
-            Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("No se pudieron escanear todos los elementos");
+            defaultSettings();
+            loadData();
         }
     }
 
-    public static void saveData(){
+    public static void saveData()
+    {
         System.out.println("Saving Data");
         try
         {
             escritura = new FileWriter(file);
             escritura.write("");
-            escritura.append("musicVolume:"+GameSettings.musicVolume+"\n");
-            escritura.append("effectsVolume:"+GameSettings.soundEVolume+"\n");
-            escritura.append("isFullScreen:"+GameSettings.isFullScreen+"\n");
-            escritura.append("nothingChecked:"+GameSettings.nothingChecked+"\n");
+            escritura.append("musicVolume:" + GameSettings.musicVolume.getValue() + "\n");
+            escritura.append("effectsVolume:" + GameSettings.soundEVolume.getValue() + "\n");
+            escritura.append("isFullScreen:" + GameSettings.isFullScreen + "\n");
+            escritura.append("nothingChecked:" + GameSettings.nothingChecked + "\n");
+            escritura.append("hasBeenWatched:" + GameSettings.hasBeenWatched + "\n");
+            escritura.append("hasFirstFalled:" + GameSettings.hasFirstFalled + "\n");
             escritura.close();
         } catch (IOException ex)
         {
             Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    private String getLine()
+    {
+        String in = entrada.nextLine();
+        if (!in.equals(""))
+        {
+            return in;
+        } else
+        {
+            return null;
+        }
+    }
+
 }

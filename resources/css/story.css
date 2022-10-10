@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'Perfect DOS VGA 437 Win';
+    src: url('../fonts/dialogo.ttf');
+}
+
+.fondo{
+    -fx-background-color: black;
+}
+.texto{
+    -fx-font-family: 'Perfect DOS VGA 437 Win';
+    -fx-text-fill: white;
+}
+.title{
+    -fx-font-family: 'Perfect DOS VGA 437 Win';
+    -fx-font-size: 6em;
+    -fx-text-fill: white;
+}
+.doso{
+    -fx-font-family: 'Perfect DOS VGA 437 Win';
+    -fx-font-size: 8em;
+    -fx-text-fill: #990000;
+}
