@@ -16,7 +16,6 @@ public abstract class Entity
 {
 
     //CLASS PROPERTIES
-    private final int BOUNDS = 3;
     public GamePanel gp;
     public int worldX, worldY;
     public BufferedImage up1, up2, left1, left2, right1, right2, down1, down2, up3, left3, right3, down3;
@@ -68,35 +67,35 @@ public abstract class Entity
     public BufferedImage loadImage(String path)
     {
         UtilityTool uTool = new UtilityTool();
-        BufferedImage img = null;
+        BufferedImage image = null;
 
         try
         {
-            img = ImageIO.read(getClass().getResourceAsStream(path));
-            img = uTool.scaleImage(img, gp.tileSize, gp.tileSize);
+            image = ImageIO.read(getClass().getResourceAsStream(path));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         } catch (Exception e)
         {
             e.printStackTrace();
         }
 
-        return img;
+        return image;
     }
 
     public BufferedImage loadImage(String path, int width, int height)
     {
         UtilityTool uTool = new UtilityTool();
-        BufferedImage img = null;
+        BufferedImage image = null;
 
         try
         {
-            img = ImageIO.read(getClass().getResourceAsStream(path));
-            img = uTool.scaleImage(img, width, height);
+            image = ImageIO.read(getClass().getResourceAsStream(path));
+            image = uTool.scaleImage(image, width, height);
         } catch (Exception e)
         {
             e.printStackTrace();
         }
 
-        return img;
+        return image;
     }
 
     public void speak()
@@ -185,10 +184,10 @@ public abstract class Entity
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        if (worldX + (gp.tileSize * BOUNDS) > gp.player.worldX - gp.player.screenX
-                && worldX - (gp.tileSize * BOUNDS) < gp.player.worldX + gp.player.screenX
-                && worldY + (gp.tileSize * BOUNDS) > gp.player.worldY - gp.player.screenY
-                && worldY - (gp.tileSize * BOUNDS) < gp.player.worldY + gp.player.screenY)
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
+                && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+                && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
+                && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY)
         {
             switch (direction)
             {

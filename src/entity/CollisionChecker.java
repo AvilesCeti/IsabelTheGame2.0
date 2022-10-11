@@ -47,8 +47,8 @@ public class CollisionChecker
                 break;
             case "down":
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
-                tileNum = gp.manager.mapTileNum[entityLeftCol][entityBottomRow];
-                tileNum2 = gp.manager.mapTileNum[entityRightCol][entityBottomRow];
+                tileNum = gp.manager.mapTileNum[entityLeftCol][entityTopRow];
+                tileNum2 = gp.manager.mapTileNum[entityLeftCol][entityBottomRow];
                 if (gp.manager.tiles[tileNum].collision == true || gp.manager.tiles[tileNum2].collision == true)
                 {
                     entity.collisionOn = true;

@@ -44,8 +44,8 @@ public class Persistencia
         {
             escritura = new FileWriter(file);
             escritura.write("");
-            escritura.append("musicVolume:100\n");
-            escritura.append("effectsVolume:100\n");
+            escritura.append("musicVolume:1\n");
+            escritura.append("effectsVolume:1\n");
             escritura.append("isFullScreen:false\n");
             escritura.append("nothingChecked:false\n");
             escritura.append("hasBeenWatched:false\n");

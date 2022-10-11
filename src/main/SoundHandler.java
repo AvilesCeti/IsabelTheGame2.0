@@ -2,8 +2,6 @@ package main;
 
 import java.util.HashMap;
 import java.util.Map;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -12,10 +10,7 @@ import javafx.scene.media.MediaPlayer;
 public class SoundHandler
 {
 
-    
     private static Map<String, SourceSound> sounds;
-    private double factor, volume;
-    public static String actualKey = "kono";
 
     public SoundHandler()
     {
@@ -46,6 +41,5 @@ public class SoundHandler
     {
         sounds.get(key).getMediaPlayer().play();
     }
-
 
 }

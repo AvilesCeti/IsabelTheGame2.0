@@ -53,18 +53,18 @@ public class EventHandler
 
         if (canTouchEvent)
         {
-//            if (hit(72, 81, "any"))
-//            {
-//                exampleEvent(72, 81, gp.DIALOGUE_STATE);
-//            }
-//            if (hit(67, 84, "any"))
-//            {
-//                exampleEnterEvent(67, 84, gp.DIALOGUE_STATE);
-//            }
-//            if (hit(62, 81, "any"))
-//            {
-//                exampleOnceEvent(62, 81, gp.DIALOGUE_STATE);
-//            }
+            if (hit(72, 81, "any"))
+            {
+                exampleEvent(72, 81, gp.DIALOGUE_STATE);
+            }
+            if (hit(67, 84, "any"))
+            {
+                exampleEnterEvent(67, 84, gp.DIALOGUE_STATE);
+            }
+            if (hit(62, 81, "any"))
+            {
+                exampleOnceEvent(62, 81, gp.DIALOGUE_STATE);
+            }
         }
 
     }

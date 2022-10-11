@@ -18,7 +18,7 @@ public class NPC_Doc extends Entity
 
         direction = "down";
         speed = 1;
-        if(gp.player.isFalling == true){
+        if(gp.player.isFalling== true){
            speed = 0; 
         }
 

@@ -2,7 +2,6 @@ package entity;
 
 import Game.GameKeyHandler;
 import Game.GamePanel;
-import Persistencia.GameSettings;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -13,7 +12,7 @@ import object.OBJ_Weapon;
  *
  * @author avile
  */
-public final class Player extends Entity
+public class Player extends Entity
 {
 
     private BufferedImage fall1, fall2, fall3;
@@ -48,8 +47,6 @@ public final class Player extends Entity
 
         setDefaultValues();
         getPlayerImages();
-        
-        isFalling = !GameSettings.hasFirstFalled;
     }
 
     private void getPlayerImages()
@@ -129,7 +126,6 @@ public final class Player extends Entity
             gp.npc[0].speak();
             NPC_Doc.isStarting = true;
             isFalling = false;
-            GameSettings.hasFirstFalled = true;
         }
     }
 

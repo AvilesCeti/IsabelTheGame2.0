@@ -58,18 +58,16 @@ public class OptionsController implements Initializable
         barMusic.valueProperty().addListener((observable) ->
         {
             labelMusic.setText("Volumen Musica: " + (int) (barMusic.getValue()) + "%");
-            double factor = barMusic.getValue()/100;
-            GameSettings.musicVolume.set(factor*factor);
+            GameSettings.musicVolume.set(barMusic.getValue()/100);
         });
         barSE.valueProperty().addListener((observable) ->
         {
             labelSE.setText("Efectos Sonido: " + (int) (barSE.getValue()) + "%");
-            double factor = barSE.getValue()/100;
-            GameSettings.soundEVolume.set(factor*factor);
+            GameSettings.soundEVolume.set(barSE.getValue()/100);
         });
-        barMusic.setValue(GameSettings.musicVolume.getValue());
+        barMusic.setValue(GameSettings.musicVolume.getValue()*100);
         labelMusic.setText("Volumen Musica: " + (int) (barMusic.getValue()) + "%");
-        barSE.setValue(GameSettings.soundEVolume.getValue());
+        barSE.setValue(GameSettings.soundEVolume.getValue()*100);
         labelSE.setText("Efectos Sonido: " + (int) (barSE.getValue()) + "%");
         fullS.setSelected(GameSettings.isFullScreen);
         fullS.selectedProperty().addListener((observable) ->

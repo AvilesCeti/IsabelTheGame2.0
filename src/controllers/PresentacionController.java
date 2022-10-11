@@ -2,6 +2,7 @@
  */
 package controllers;
 
+import Game.GamePanel;
 import Persistencia.Persistencia;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,8 +20,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import main.IsabelTheGame;
 import tile.UtilityTool;
 
@@ -42,6 +45,8 @@ public class PresentacionController implements Initializable
     private ImageView bkg3;
     @FXML
     private ImageView bkg4;
+    @FXML
+    private AnchorPane padre;
 
     /**
      * Initializes the controller class.
@@ -92,15 +97,23 @@ public class PresentacionController implements Initializable
     @FXML
     private void continuar(ActionEvent event)
     {
-        try
-        {
-            IsabelTheGame.soundHandler.stop("song");
-            Parent root = FXMLLoader.load(getClass().getResource("/scenes/Story.fxml"));
-            IsabelTheGame.scene.setRoot(root);
-        } catch (Exception ex)
-        {
-            Logger.getLogger(PresentacionController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        IsabelTheGame.stage.hide();
+        JFrame window = new JFrame("Isabel The Game");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+
+        GamePanel gamePanel = new GamePanel();
+
+        gamePanel.setupGame();        //Method that creates and locate things like objects etc.
+        gamePanel.startGameThread();      //When the actual game starts
+        gamePanel.player.isFalling = true;
+
+        window.add(gamePanel);
+
+        window.pack();
+
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
     }
 
     @FXML

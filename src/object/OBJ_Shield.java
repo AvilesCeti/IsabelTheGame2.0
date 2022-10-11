@@ -3,8 +3,8 @@
 
 package object;
 
-import entity.Entity;
 import Game.GamePanel;
+import entity.Entity;
 
 /**
  *

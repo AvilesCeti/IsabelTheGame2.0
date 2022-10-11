@@ -4,10 +4,8 @@
  */
 package object;
 
-import entity.Entity;
 import Game.GamePanel;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import entity.Entity;
 
 /**
  *
@@ -20,9 +18,8 @@ public class OBJ_Chest extends Entity
     {
         super(gp);
         name = "Chest";
-        down3 = loadImage("/objects/chest1.png");
+        down1 = loadImage("/objects/chest1.png");
         collision = true;
-        isIdle = true;
     }
-    
+
 }

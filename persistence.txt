@@ -1,5 +1,5 @@
-musicVolume:100.0
-effectsVolume:46.74556213017752
+musicVolume:0.5118343195266272
+effectsVolume:1.0
 isFullScreen:false
 nothingChecked:false
 hasBeenWatched:false

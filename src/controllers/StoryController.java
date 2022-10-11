@@ -3,9 +3,6 @@
 package controllers;
 
 import Game.GamePanel;
-import Persistencia.Persistencia;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +23,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import main.IsabelTheGame;
 import tile.UtilityTool;
-import static main.IsabelTheGame.soundHandler;
 
 /**
  * FXML Controller class
@@ -48,6 +44,8 @@ public class StoryController implements Initializable
     private boolean canNext = false;
     @FXML
     private AnchorPane titulo;
+    @FXML
+    private AnchorPane padre;
 
     /**
      * Initializes the controller class.
@@ -104,22 +102,14 @@ public class StoryController implements Initializable
     {
         IsabelTheGame.stage.hide();
         JFrame window = new JFrame("Isabel The Game");
-        window.addWindowListener(new WindowAdapter()
-        {
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-                Persistencia.saveData();
-                System.exit(0);
-            }
-
-        });
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
 
         GamePanel gamePanel = new GamePanel();
 
         gamePanel.setupGame();        //Method that creates and locate things like objects etc.
         gamePanel.startGameThread();      //When the actual game starts
+        gamePanel.player.isFalling = true;
 
         window.add(gamePanel);
 
@@ -136,7 +126,6 @@ public class StoryController implements Initializable
         {
             if (event.getCode() == KeyCode.ENTER)
             {
-                System.out.println(storyCounter);
                 if (canNext)
                 {
                     switch (storyCounter)
@@ -198,6 +187,7 @@ public class StoryController implements Initializable
                             break;
                         case 11:
                             IsabelTheGame.soundHandler.stop("flower");
+                            IsabelTheGame.soundHandler.play("noise");
                             texto.setVisible(false);
                             imagen.setVisible(false);
                             titulo.setVisible(true);
@@ -225,10 +215,6 @@ public class StoryController implements Initializable
             char[] chars = historia[i].toCharArray();
             if (charIndex < chars.length)
             {
-                if (chars[charIndex] != ' ')
-                {
-                    IsabelTheGame.soundHandler.play("asgore");
-                }
                 cadenaA = cadenaA.concat(String.valueOf(chars[charIndex]));
                 charIndex++;
                 texto.setText(cadenaA);
