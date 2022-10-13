@@ -68,7 +68,7 @@ public class StoryController implements Initializable
         historia[5] = "Muchos años mas tarde...";
         historia[6] = "(Whatsapp Web de Isabel)\n"
                 + "{2022}";
-        historia[7] = "La leyenda cuenta que las chicas que llegan a hablar con un programador nunca regresan.";
+        historia[7] = "La leyenda cuenta que las mujeres que llegan a hablar con un programador nunca regresan.";
         iniciarHistoria();
     }
 

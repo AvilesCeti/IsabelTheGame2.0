@@ -127,23 +127,39 @@ public class GameKeyHandler implements KeyListener
         if (code == KeyEvent.VK_CONTROL)
         {
             gp.gameState = gp.PLAY_STATE;
+            gp.ui.commandNum = 0;
+            gp.ui.subState = 0;
         }
         if (code == KeyEvent.VK_ENTER)
         {
             enterPressed = true;
+        }
+        int maxInterval = 0;
+        switch (gp.ui.subState)
+        {
+            case 0:
+                maxInterval = 5;
+                break;
+            case 1:
+                maxInterval = 0;
+                break;
+            case 2:
+                maxInterval = 0;
+                break;
+
         }
         if (code == KeyEvent.VK_W)
         {
             gp.ui.commandNum--;
             if (gp.ui.commandNum < 0)
             {
-                gp.ui.commandNum = 4;
+                gp.ui.commandNum = maxInterval;
             }
         }
         if (code == KeyEvent.VK_S)
         {
             gp.ui.commandNum++;
-            if (gp.ui.commandNum > 4)
+            if (gp.ui.commandNum > maxInterval)
             {
                 gp.ui.commandNum = 0;
             }
