@@ -15,7 +15,7 @@ public class GameKeyHandler implements KeyListener
 {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed;
-    public boolean isDebug = false, enterPressed;
+    public boolean isDebug = false, enterPressed = false;
     public GamePanel gp;
 
     public GameKeyHandler(GamePanel gp)
@@ -34,12 +34,7 @@ public class GameKeyHandler implements KeyListener
     {
         int code = e.getKeyCode();
 
-        //TITLE STATE
-        if (gp.gameState == gp.TITLE_STATE)
-        {
-            titleState(code);
-        } //PLAY STATE
-        else if (gp.gameState == gp.PLAY_STATE)
+        if (gp.gameState == gp.PLAY_STATE)
         {
             playState(code);
         } //PAUSE STATE
@@ -54,6 +49,9 @@ public class GameKeyHandler implements KeyListener
         else if (gp.gameState == gp.CHARACTER_STATE)
         {
             characterState(code);
+        } else if (gp.gameState == gp.OPTIONS_STATE)
+        {
+            optionsState(code);
         }
     }
 
@@ -88,47 +86,15 @@ public class GameKeyHandler implements KeyListener
             gp.gameState = gp.CHARACTER_STATE;
         }
 
+        if (code == KeyEvent.VK_CONTROL)
+        {
+            gp.gameState = gp.OPTIONS_STATE;
+        }
+
         //DEBUG SYSTEM
         if (code == KeyEvent.VK_T)
         {
             isDebug = !isDebug;
-        }
-    }
-
-    public void titleState(int code)
-    {
-        if (code == KeyEvent.VK_W)
-        {
-            gp.ui.commandNum--;
-            if (gp.ui.commandNum < 0)
-            {
-                gp.ui.commandNum = 2;
-            }
-        }
-        if (code == KeyEvent.VK_S)
-        {
-            gp.ui.commandNum++;
-            if (gp.ui.commandNum > 2)
-            {
-                gp.ui.commandNum = 0;
-            }
-        }
-        if (code == KeyEvent.VK_ENTER)
-        {
-            if (gp.ui.commandNum == 0)
-            {
-                gp.gameState = gp.PLAY_STATE;
-                gp.player.isFalling = false;
-                gp.playMusic(1);
-            }
-            if (gp.ui.commandNum == 1)
-            {
-                //IMPLEMENTING LATER
-            }
-            if (gp.ui.commandNum == 2)
-            {
-                System.exit(0);
-            }
         }
     }
 
@@ -153,6 +119,64 @@ public class GameKeyHandler implements KeyListener
         if (code == KeyEvent.VK_G)
         {
             gp.gameState = gp.PLAY_STATE;
+        }
+    }
+
+    private void optionsState(int code)
+    {
+        if (code == KeyEvent.VK_CONTROL)
+        {
+            gp.gameState = gp.PLAY_STATE;
+        }
+        if (code == KeyEvent.VK_ENTER)
+        {
+            enterPressed = true;
+        }
+        if (code == KeyEvent.VK_W)
+        {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0)
+            {
+                gp.ui.commandNum = 4;
+            }
+        }
+        if (code == KeyEvent.VK_S)
+        {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > 4)
+            {
+                gp.ui.commandNum = 0;
+            }
+        }
+        if (code == KeyEvent.VK_A)
+        {
+            if (gp.ui.subState == 0)
+            {
+                if (gp.ui.commandNum == 1 && gp.music.volumeScale > 0)
+                {
+                    gp.music.volumeScale--;
+                    gp.music.checkVolume();
+                }
+                if (gp.ui.commandNum == 2 && gp.se.volumeScale > 0)
+                {
+                    gp.se.volumeScale--;
+                }
+            }
+        }
+        if (code == KeyEvent.VK_D)
+        {
+            if (gp.ui.subState == 0)
+            {
+                if (gp.ui.commandNum == 1 && gp.music.volumeScale < 5)
+                {
+                    gp.music.volumeScale++;
+                    gp.music.checkVolume();
+                }
+                if (gp.ui.commandNum == 2 && gp.se.volumeScale < 5)
+                {
+                    gp.se.volumeScale++;
+                }
+            }
         }
     }
 

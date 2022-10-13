@@ -3,7 +3,8 @@
 package controllers;
 
 import Game.GamePanel;
-import Persistencia.Persistencia;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -99,7 +100,15 @@ public class PresentacionController implements Initializable
     {
         IsabelTheGame.stage.hide();
         JFrame window = new JFrame("Isabel The Game");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                IsabelTheGame.salir();
+            }
+            
+        });
         window.setResizable(false);
 
         GamePanel gamePanel = new GamePanel();
@@ -160,8 +169,7 @@ public class PresentacionController implements Initializable
     @FXML
     private void salir(ActionEvent event)
     {
-        Persistencia.saveData();
-        System.exit(0);
+        IsabelTheGame.salir();
     }
 
     private void animateImages()
@@ -198,10 +206,5 @@ public class PresentacionController implements Initializable
         tmr.play();
     }
 
-    private int cerrarPrograma()
-    {
-        Persistencia.saveData();
-        return 0;
-    }
 
 }

@@ -22,6 +22,8 @@ public class IsabelTheGame extends Application
     public static Stage stage;
     public static Scene scene;
     public static SoundHandler soundHandler = new SoundHandler();
+    
+    
     private Persistencia p;
 
     @Override
@@ -34,7 +36,6 @@ public class IsabelTheGame extends Application
         {
             primaryStage.setResizable(false);
             Parent root = FXMLLoader.load(getClass().getResource("/scenes/Presentacion.fxml"));
-//            soundHandler.play("song");
             originalRoot = root;
             Scene scn = new Scene(root);
             IsabelTheGame.scene = scn;
@@ -43,8 +44,7 @@ public class IsabelTheGame extends Application
             primaryStage.sizeToScene();
             primaryStage.setOnCloseRequest((WindowEvent event) ->
             {
-                Persistencia.saveData();
-                System.exit(0);
+                salir();
             });
             primaryStage.show();
         } catch (IOException ex)
@@ -54,6 +54,12 @@ public class IsabelTheGame extends Application
         }
     }
 
+    public static void salir()
+    {
+        Persistencia.saveData();
+        System.exit(0);
+    }
+    
     /**
      * @param args the command line arguments
      */

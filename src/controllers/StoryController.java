@@ -3,6 +3,8 @@
 package controllers;
 
 import Game.GamePanel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -102,7 +104,15 @@ public class StoryController implements Initializable
     {
         IsabelTheGame.stage.hide();
         JFrame window = new JFrame("Isabel The Game");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                IsabelTheGame.salir();
+            }
+            
+        });
         window.setResizable(false);
 
         GamePanel gamePanel = new GamePanel();
