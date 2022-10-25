@@ -103,30 +103,29 @@ public class StoryController implements Initializable
     private void iniciarJuego()
     {
         IsabelTheGame.stage.hide();
-        JFrame window = new JFrame("Isabel The Game");
-        window.addWindowListener(new WindowAdapter()
+        IsabelTheGame.frame = new JFrame("Isabel The Game");
+        IsabelTheGame.frame.addWindowListener(new WindowAdapter()
         {
             @Override
             public void windowClosing(WindowEvent e)
             {
                 IsabelTheGame.salir();
             }
-            
+
         });
-        window.setResizable(false);
+        IsabelTheGame.frame.setResizable(false);
+        IsabelTheGame.frame.setUndecorated(true);
 
         GamePanel gamePanel = new GamePanel();
+        IsabelTheGame.frame.add(gamePanel);
+
+        IsabelTheGame.frame.pack();
+
+        IsabelTheGame.frame.setLocationRelativeTo(null);
+        IsabelTheGame.frame.setVisible(true);
 
         gamePanel.setupGame();        //Method that creates and locate things like objects etc.
-        gamePanel.startGameThread();      //When the actual game starts
-        gamePanel.player.isFalling = true;
-
-        window.add(gamePanel);
-
-        window.pack();
-
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        gamePanel.startGameThread();      //When the actual game starts.
     }
 
     private void iniciarHistoria()

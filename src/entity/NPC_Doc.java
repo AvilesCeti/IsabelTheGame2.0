@@ -18,8 +18,9 @@ public class NPC_Doc extends Entity
 
         direction = "down";
         speed = 1;
-        if(gp.player.isFalling== true){
-           speed = 0; 
+        if (gp.player.isFalling == true)
+        {
+            speed = 0;
         }
 
         int factor = gp.tileSize / 6;
@@ -45,7 +46,7 @@ public class NPC_Doc extends Entity
         dialogues[3] = "Bueno!, me mandaron a darte indicaciones para la cita de hoy";
         dialogues[4] = "Tendrias que ir a tu casa primero";
         dialogues[5] = "Come algo, descansa un poco, la cita es mañana por la tarde";
-        
+
 //        dialogues[1][0] = "Ya fuiste a tu casa?";
 //        dialogues[1][1] = "¿No?";
 //        dialogues[1][2] = "No te preocupes, puedes pasear por aqui todo lo que gustes";
@@ -123,8 +124,8 @@ public class NPC_Doc extends Entity
             }
         } else
         {
-            direction = "right";
-            speed = 75 / 20;
+            direction = "left";
+            speed = 5;
         }
     }
 

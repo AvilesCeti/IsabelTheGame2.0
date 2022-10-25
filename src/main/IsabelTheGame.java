@@ -2,7 +2,9 @@
  */
 package main;
 
+import Game.GamePanel;
 import Persistencia.Persistencia;
+import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,6 +21,7 @@ import javafx.stage.WindowEvent;
 public class IsabelTheGame extends Application
 {
 
+    public static JFrame frame;
     public static Parent originalRoot;
     public static Stage stage;
     public static Scene scene;

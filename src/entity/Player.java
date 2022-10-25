@@ -72,7 +72,7 @@ public class Player extends Entity
     {
         worldX = gp.tileSize * 67;
         worldY = gp.tileSize * 82;
-        speed = (gp.timesPerSecond / 15);
+        speed = 6;
         level = 1;
         maxLife = 50;
         life = maxLife;

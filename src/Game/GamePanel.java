@@ -7,12 +7,17 @@ import entity.Player;
 import tile.TileManager;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JPanel;
+import main.IsabelTheGame;
 
 /**
  *
@@ -22,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable
 {
 
     //GAME SETTINGS
-    public int timesPerSecond = 75;
+    public int timesPerSecond = 60;
     public Thread gameThread;
     public final int originalTileSize = 32;
     private final int scale = 4;
@@ -31,6 +36,12 @@ public class GamePanel extends JPanel implements Runnable
     public final int maxScreenRow = 7;
     public int screenWidth = tileSize * maxScreenCol;
     public int screenHeight = tileSize * maxScreenRow;
+
+    //FULL SCREEN SETTINGS
+    int screenWidth2 = screenWidth;
+    int screenHeight2 = screenHeight;
+    private BufferedImage tempScreen;
+    private Graphics2D g2;
 
     //WORLD SETTINGS
     public int maxWorldCol;
@@ -62,9 +73,6 @@ public class GamePanel extends JPanel implements Runnable
     //TILES & BACKGROUND
     public TileManager manager;
 
-    //Player Settings
-    int x = 100, y = 100, speed = 4;
-
     //GAME STATE
     public int gameState;
     public final int PLAY_STATE = 1;
@@ -74,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable
     public final int OPTIONS_STATE = 5;
 
     //DEBUG VARIABLES
-    long startTime = 0, lastTime = 0;
+    long FPS = 0;
 
     public GamePanel()
     {
@@ -98,6 +106,26 @@ public class GamePanel extends JPanel implements Runnable
         aSetter.setObject();
         aSetter.setNPC();
         gameState = PLAY_STATE;
+
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+        g2 = (Graphics2D) tempScreen.getGraphics();
+
+        setFullScreen();
+    }
+
+    public void setFullScreen()
+    {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        if (gd.isFullScreenSupported())
+        {
+            gd.setFullScreenWindow(IsabelTheGame.frame);
+            screenWidth2 = IsabelTheGame.frame.getWidth();
+            screenHeight2 = IsabelTheGame.frame.getHeight();
+        } else
+        {
+            System.err.print("FullScreen is not supported.");
+        }
     }
 
     @Override
@@ -107,20 +135,28 @@ public class GamePanel extends JPanel implements Runnable
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-        int drawCount = 0;
+        long timer = 0;
+        long drawCount = 0;
         while (gameThread != null)
         {
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
-
+            timer += (currentTime - lastTime);
             lastTime = currentTime;
             if (delta >= 1)
             {
                 update();
 
-                repaint();
+                render();
+
                 delta--;
                 drawCount++;
+            }
+            if (timer >= 1000000000)
+            {
+                FPS = drawCount;
+                drawCount = 0;
+                timer = 0;
             }
         }
     }
@@ -147,12 +183,8 @@ public class GamePanel extends JPanel implements Runnable
         }
     }
 
-    @Override
-    protected void paintComponent(Graphics g)
+    public void render()
     {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-
         //TILE
         manager.draw(g2);
 
@@ -192,10 +224,23 @@ public class GamePanel extends JPanel implements Runnable
         //EMPTY ENTITY LIST
         eList.clear();
 
+        if (keyHandler.isDebug)
+        {
+            g2.setFont(new Font("Courier New", Font.PLAIN, 32));
+            g2.setColor(Color.YELLOW);
+            g2.drawString("FPS: "+FPS, 50, 50);
+        }
+
         //UI
         ui.draw(g2);
-        g2.dispose();
+        drawToScreen();
+    }
 
+    public void drawToScreen()
+    {
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+        g.dispose();
     }
 
     public void playMusic(int i)
@@ -221,4 +266,5 @@ public class GamePanel extends JPanel implements Runnable
         gameThread = new Thread(this);
         gameThread.start();
     }
+
 }
