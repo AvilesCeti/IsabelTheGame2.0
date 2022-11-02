@@ -28,9 +28,8 @@ public abstract class Entity
     public int actionCounter = 0;
     public boolean collision = false;
     public BufferedImage image;
-
     //DIALOGUES
-    public String[] dialogues = new String[20];
+    public String[][] dialogues;
     public int dialogueSet = 0;
     public int dialogueIndex = 0;
 
@@ -61,6 +60,7 @@ public abstract class Entity
 
     public Entity(GamePanel gp)
     {
+        this.dialogues = new String[20][20];
         this.gp = gp;
     }
 
@@ -98,15 +98,8 @@ public abstract class Entity
         return image;
     }
 
-    public void speak()
+    public void facePlayer()
     {
-        if (dialogues[dialogueIndex] == null)
-        {
-            dialogueIndex = 0;
-        }
-        gp.ui.currentDialogue = dialogues[dialogueIndex];
-        dialogueIndex++;
-
         switch (gp.player.direction)
         {
             case "up":
@@ -122,6 +115,18 @@ public abstract class Entity
                 direction = "up";
                 break;
         }
+    }
+
+    public void speak()
+    {
+        
+    }
+
+    public void startDialogue(Entity entity, int setNum)
+    {
+        gp.gameState = gp.DIALOGUE_STATE;
+        gp.ui.npc = entity;
+        dialogueSet = setNum;
     }
 
     public void setAction()

@@ -16,7 +16,6 @@ public final class SoundLoader
         h.addSound("kono", new SourceSound(getClass().getResource("/music/konosuba.wav"), true, true));
         h.addSound("nothing", new SourceSound(getClass().getResource("/music/nothing.wav"), true, true));
         h.addSound("song", new SourceSound(getClass().getResource("/music/song.wav"), true, true));
-        h.addSound("toradora", new SourceSound(getClass().getResource("/music/toradora.wav"), true, true));
         h.addSound("intro", new SourceSound(getClass().getResource("/music/intro.wav"), true, true));
         h.addSound("noise", new SourceSound(getClass().getResource("/music/noise.wav"), true, true));
         h.addSound("asgore", new SourceSound(getClass().getResource("/talkM/snd_txtasg.wav"), false, false));

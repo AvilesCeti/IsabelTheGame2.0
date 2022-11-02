@@ -52,6 +52,12 @@ public class GameKeyHandler implements KeyListener
         } else if (gp.gameState == gp.OPTIONS_STATE)
         {
             optionsState(code);
+        } else if (gp.gameState == 8)
+        {
+            if (code == KeyEvent.VK_ENTER)
+            {
+                enterPressed = true;
+            }
         }
     }
 
@@ -110,7 +116,24 @@ public class GameKeyHandler implements KeyListener
     {
         if (code == KeyEvent.VK_ENTER)
         {
-            gp.gameState = gp.PLAY_STATE;
+            enterPressed = true;
+        }
+        int maxInterval = 2;
+        if (code == KeyEvent.VK_A)
+        {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0)
+            {
+                gp.ui.commandNum = maxInterval;
+            }
+        }
+        if (code == KeyEvent.VK_D)
+        {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > maxInterval)
+            {
+                gp.ui.commandNum = 0;
+            }
         }
     }
 

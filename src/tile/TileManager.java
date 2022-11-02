@@ -141,10 +141,10 @@ public class TileManager
             int screenX = worldX - panel.player.worldX + panel.player.screenX;
             int screenY = worldY - panel.player.worldY + panel.player.screenY;
 
-            if (worldX + panel.tileSize > panel.player.worldX - panel.player.screenX
+            if (       worldX  + panel.tileSize> panel.player.worldX - panel.player.screenX
                     && worldX - panel.tileSize < panel.player.worldX + panel.player.screenX
                     && worldY + panel.tileSize > panel.player.worldY - panel.player.screenY
-                    && worldY - panel.tileSize < panel.player.worldY + panel.player.screenY)
+                    && worldY - panel.tileSize< panel.player.worldY + panel.player.screenY)
             {
                 g2.drawImage(tiles[tileNum].image, screenX, screenY, null);
                 if (panel.keyHandler.isDebug)

@@ -114,7 +114,7 @@ public class Player extends Entity
 
             if (fallNumber > (gp.timesPerSecond * 4.5))
             {
-                direction = "left";
+                direction = "right";
                 fallCounter = 5;
             }
             animationY = screenY;
@@ -304,21 +304,25 @@ public class Player extends Entity
             }
         } else
         {
-            if (fallCounter == 1)
+            switch (fallCounter)
             {
-                defaultImage = fall1;
-            } else if (fallCounter == 2)
-            {
-                defaultImage = fall2;
-            } else if (fallCounter == 3)
-            {
-                defaultImage = fall3;
-            } else if (fallCounter == 4)
-            {
-                defaultImage = down3;
-            } else if (fallCounter == 5)
-            {
-                defaultImage = left3;
+                case 1:
+                    defaultImage = fall1;
+                    break;
+                case 2:
+                    defaultImage = fall2;
+                    break;
+                case 3:
+                    defaultImage = fall3;
+                    break;
+                case 4:
+                    defaultImage = down3;
+                    break;
+                case 5:
+                    defaultImage = right3;
+                    break;
+                default:
+                    break;
             }
 
             g2.drawImage(defaultImage, screenX, (int) animationY, null);
@@ -331,7 +335,6 @@ public class Player extends Entity
         {
             if (gp.keyHandler.enterPressed)
             {
-                gp.gameState = gp.DIALOGUE_STATE;
                 gp.npc[npcIndex].speak();
             }
         }

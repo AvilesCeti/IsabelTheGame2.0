@@ -4,6 +4,8 @@
  */
 package Game;
 
+import Persistencia.GameSettings;
+import entity.Entity;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -28,8 +30,14 @@ public class UI
     public String currentDialogue = "";
     public int subState = 0;
 
+    public String[][] messages = new String[20][20];
+    public int messageSet = 0;
+    public int messageIndex = 0;
+
     public int commandNum = 0;
-    public boolean isFullScreen = false;
+
+    public Entity npc;
+    public boolean banderaM = true;
 
     public UI(GamePanel gp)
     {
@@ -43,6 +51,19 @@ public class UI
         {
             e.printStackTrace();
         }
+        setMessages();
+    }
+
+    private void setMessages()
+    {
+        messages[0][0] = "¿Que?, enserio despues de tanto\ndesarrollo vas a jugarlo en facil??";
+        messages[0][1] = "Anda ya!, escoge algo mas complicado\nprometo que no muerde jaja";
+
+        messages[1][0] = "Hmmm...\nnormal eh?, not bad, pero...";
+        messages[1][1] = "Se que puedes hacerlo en modo dificil!\nyo creo en ti! :D";
+
+        messages[2][0] = "Asi se habla!, Dificil, como las mujeres\nluchonas y empoderadas juegan";
+        messages[2][1] = "*INCREMENTANDO DAÑO DE TODOS LOS ENEMIGOS*\n*DISMINUYENDO LOOT*\n*AUMENTANDO PELIGROSAMENTE NIVEL DE SARCASMO*";
     }
 
     public void showMessage(String text)
@@ -79,7 +100,110 @@ public class UI
 
     private void drawDialogueScreen()
     {
+        if (npc.dialogueSet == 0 && npc.dialogueIndex == 4)
+        {
+            //WINDOW
+            int x = gp.tileSize * 2;
+            int y = gp.tileSize;
+            int width = gp.screenWidth - (gp.tileSize * 4);
+            int height = gp.tileSize * 3;
+            drawSubWindow(x, y, width, height);
 
+            g2.setFont(dialogo);
+            g2.setFont(g2.getFont().deriveFont(40F));
+            x += gp.tileSize / 2;
+            y += gp.tileSize / 2;
+
+            g2.drawString("Facil", x, y);
+            if (commandNum == 0)
+            {
+                g2.drawString(">", x - 20, y);
+            }
+            x += 300;
+            g2.drawString("Normal", x, y);
+            if (commandNum == 1)
+            {
+                g2.drawString(">", x - 20, y);
+            }
+            x += 300;
+            g2.drawString("Dificil", x, y);
+            if (commandNum == 2)
+            {
+                g2.drawString(">", x - 20, y);
+            }
+            if (gp.keyHandler.enterPressed)
+            {
+                gp.keyHandler.enterPressed = false;
+                switch (commandNum)
+                {
+                    case 0:
+                        gp.gameState = 8;
+                        messageSet = 0;
+                        break;
+                    case 1:
+                        gp.gameState = 8;
+                        messageSet = 1;
+                        break;
+                    case 2:
+                        gp.gameState = 8;
+                        messageSet = 2;
+                        break;
+                }
+                gp.keyHandler.enterPressed = false;
+            }
+        } else
+        {
+            if (npc.dialogueSet == 2 && banderaM)
+            {
+                banderaM = false;
+                gp.music.volumeScale = 1;
+                gp.music.checkVolume();
+            }
+            //WINDOW
+            int x = gp.tileSize * 2;
+            int y = gp.tileSize;
+            int width = gp.screenWidth - (gp.tileSize * 4);
+            int height = gp.tileSize * 3;
+            drawSubWindow(x, y, width, height);
+
+            g2.setFont(dialogo);
+            g2.setFont(g2.getFont().deriveFont(40F));
+            x += gp.tileSize / 2;
+            y += gp.tileSize / 2;
+
+            if (npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null)
+            {
+                currentDialogue = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
+                if (gp.keyHandler.enterPressed)
+                {
+                    if (gp.gameState == gp.DIALOGUE_STATE)
+                    {
+                        npc.dialogueIndex++;
+
+                        gp.keyHandler.enterPressed = false;
+                    }
+                }
+            } else
+            {
+                npc.dialogueIndex = 0;
+                if (gp.gameState == gp.DIALOGUE_STATE)
+                {
+                    npc.dialogueSet++;
+                    gp.gameState = gp.PLAY_STATE;
+                }
+            }
+
+            for (String line : currentDialogue.split("\n"))
+            {
+                g2.drawString(line, x, y);
+                y += gp.tileSize / 2;
+            }
+        }
+
+    }
+
+    private void showMessages()
+    {
         //WINDOW
         int x = gp.tileSize * 2;
         int y = gp.tileSize;
@@ -92,9 +216,33 @@ public class UI
         x += gp.tileSize / 2;
         y += gp.tileSize / 2;
 
+        if (messages[messageSet][messageIndex] != null)
+        {
+            currentDialogue = messages[messageSet][messageIndex];
+            if (gp.keyHandler.enterPressed)
+            {
+                if (gp.gameState == 8)
+                {
+                    messageIndex++;
+
+                    gp.keyHandler.enterPressed = false;
+                }
+            }
+        } else
+        {
+            gp.gameState = gp.DIALOGUE_STATE;
+            if (messageSet == 2)
+            {
+                npc.dialogueSet++;
+                npc.dialogueIndex = 0;
+                gp.gameState = gp.PLAY_STATE;
+            }
+            messageIndex = 0;
+        }
+
         for (String line : currentDialogue.split("\n"))
         {
-            g2.drawString(currentDialogue, x, y);
+            g2.drawString(line, x, y);
             y += gp.tileSize / 2;
         }
     }
@@ -245,7 +393,7 @@ public class UI
             g2.drawString(">", textX - gp.tileSize / 3, textY);
             if (gp.keyHandler.enterPressed == true)
             {
-                isFullScreen = !isFullScreen;
+                GameSettings.isFullScreen = !GameSettings.isFullScreen;
             }
         }
 
@@ -310,7 +458,7 @@ public class UI
         textX = (int) (frameX + gp.tileSize * 3);
         textY = (int) (frameY + gp.tileSize * 1);
 
-        if (!isFullScreen)
+        if (!GameSettings.isFullScreen)
         {
             g2.drawRect(textX, textY, gp.tileSize / 3, gp.tileSize / 3);
         } else
@@ -378,16 +526,23 @@ public class UI
                 commandNum = 3;
             }
         }
-        
+
         textX = (int) (frameX + gp.tileSize * 3.5);
         textY = frameY + gp.tileSize;
-        g2.drawString("W", textX, textY);textY+=gp.tileSize/2;
-        g2.drawString("A", textX, textY);textY+=gp.tileSize/2;
-        g2.drawString("S", textX, textY);textY+=gp.tileSize/2;
-        g2.drawString("D", textX, textY);textY+=gp.tileSize/2;
-        g2.drawString("CTRL", textX, textY);textY+=gp.tileSize/2;
-        g2.drawString("G", textX, textY);textY+=gp.tileSize/2;
-        g2.drawString("Enter", textX, textY);textY+=gp.tileSize/2;
+        g2.drawString("W", textX, textY);
+        textY += gp.tileSize / 2;
+        g2.drawString("A", textX, textY);
+        textY += gp.tileSize / 2;
+        g2.drawString("S", textX, textY);
+        textY += gp.tileSize / 2;
+        g2.drawString("D", textX, textY);
+        textY += gp.tileSize / 2;
+        g2.drawString("CTRL", textX, textY);
+        textY += gp.tileSize / 2;
+        g2.drawString("G", textX, textY);
+        textY += gp.tileSize / 2;
+        g2.drawString("Enter", textX, textY);
+        textY += gp.tileSize / 2;
         g2.drawString("P", textX, textY);
     }
 
@@ -424,6 +579,10 @@ public class UI
         if (gp.gameState == gp.OPTIONS_STATE)
         {
             drawOptionsScreen();
+        }
+        if (gp.gameState == 8)
+        {
+            showMessages();
         }
     }
 }

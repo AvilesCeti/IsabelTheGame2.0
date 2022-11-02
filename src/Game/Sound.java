@@ -30,7 +30,6 @@ public class Sound
         soundUrl[1] = getClass().getResource("/music/konosuba.wav");
         soundUrl[2] = getClass().getResource("/music/nothing.wav");
         soundUrl[3] = getClass().getResource("/music/song.wav");
-        soundUrl[4] = getClass().getResource("/music/toradora.wav");
         soundUrl[5] = getClass().getResource("/music/intro.wav");
         soundUrl[6] = getClass().getResource("/music/noise.wav");
         soundUrl[7] = getClass().getResource("/talkM/snd_txtasg.wav");
@@ -46,7 +45,6 @@ public class Sound
         {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundUrl[i]);
             clip = AudioSystem.getClip();
-            System.out.println(clip);
             clip.open(ais);
             fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             checkVolume();
@@ -58,7 +56,6 @@ public class Sound
 
     public void play()
     {
-        System.out.println("Hi");
         clip.start();
     }
 

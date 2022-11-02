@@ -1,5 +1,6 @@
 package Game;
 
+import Persistencia.GameSettings;
 import entity.CollisionChecker;
 import entity.Entity;
 import entity.EventHandler;
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable
 
     //EVENTS
     public EventHandler eHandler;
-
+    
     //SOUND
     Sound music = new Sound();
     Sound se = new Sound();
@@ -110,7 +111,9 @@ public class GamePanel extends JPanel implements Runnable
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
 
-        setFullScreen();
+        if(GameSettings.isFullScreen){
+            setFullScreen();
+        }
     }
 
     public void setFullScreen()
